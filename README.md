@@ -1,7 +1,7 @@
-# weather App
+# Weather App
 
 ## Start the app
-Downlaod the binary from releases and then unzip the file.
+Download the binary from releases and then unzip the file.
 
 ```sh
 export API_ID=<your_app_id>
