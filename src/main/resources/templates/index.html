@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+</head>
+<body>
+
+<form th:action="@{/weather}"
+      th:object="${location}" method="GET" modelAttribute="location">
+    <h1>Weather APP</h1>
+    City:
+    <select th:field="*{city}">
+        <option value="">Select City..</option>
+        <option th:each="city : ${cities}" th:value="${city}" th:text="${city}">
+    </select>
+    <br/>
+    <br/>
+    <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color:red;font-style:italic;">
+        ...
+    </div>
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>

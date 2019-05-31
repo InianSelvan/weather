@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+</head>
+<body>
+    <h1>Weather Information</h1>
+    <table border="1">
+        <tr>
+            <td><b>City</b></td>
+            <td th:utext="${weatherDetails.city}">..</td>
+        </tr>
+        <tr>
+            <td><b>Date</b></td>
+            <td th:utext="${weatherDetails.date}">..</td>
+        </tr>
+        <tr>
+            <td><b>Weather Description</b></td>
+            <td th:utext="${weatherDetails.description}">..</td>
+        </tr>
+        <tr>
+            <td><b>Temperature Celsius</b></td>
+            <td th:utext="${weatherDetails.celsius}">..</td>
+        </tr>
+        <tr>
+            <td><b>Temperature Fahrenheit</b></td>
+            <td th:utext="${weatherDetails.fahrenheit}">..</td>
+        </tr>
+        <tr>
+            <td><b>Sunrise Time</b></td>
+            <td th:utext="${weatherDetails.sunrise}">..</td>
+        </tr>
+        <tr>
+            <td><b>Sunset Time</b></td>
+            <td th:utext="${weatherDetails.sunset}">..</td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    <a href="/">Change City</a>
+
+</body>
+</html>
