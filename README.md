@@ -1,6 +1,6 @@
 # weather App
 
-##Start the app
+## Start the app
 Downlaod the binary from releases and then unzip the file.
 
 ```sh
