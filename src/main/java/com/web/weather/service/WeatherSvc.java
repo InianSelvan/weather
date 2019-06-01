@@ -5,9 +5,13 @@ import com.web.weather.model.Location;
 import com.web.weather.model.WeatherDto;
 import com.web.weather.model.WeatherResponse;
 import feign.FeignException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -19,11 +23,13 @@ import static com.web.weather.service.ServiceConstants.KELVIN;
  * @author inian
  */
 @Service
-public class WeatherSvc
+public class WeatherSvc implements IWeatherSvc
 {
 
     @Autowired
     IWeatherClient iWeatherClient;
+
+    private static Logger log = LoggerFactory.getLogger(WeatherSvc.class);
 
 
 
@@ -34,9 +40,11 @@ public class WeatherSvc
      * @throws FeignException
      * @return WeatherController DTO object
      */
+    @Override
     public WeatherDto getWeatherDetails(Location location, String key) throws FeignException
     {
         WeatherResponse response = iWeatherClient.getWeatherByCountry(location.getCity().toString(), key);
+        log.info("Getting weather response");
         if(response != null){
             WeatherDto weatherDto = new WeatherDto();
             weatherDto.setCity(response.getCity());
@@ -60,13 +68,18 @@ public class WeatherSvc
             //set temperature
             if(response.getTemperature() != null)
             {
-                double celsius = Math.floor(((response.getTemperature().getTemp() - KELVIN) * 100)/100);
+                double celsius = getShortDouble(response.getTemperature().getTemp() - KELVIN).doubleValue();
                 weatherDto.setCelsius(celsius);
-                weatherDto.setFahrenheit(Math.floor(((celsius * 9.0/5.0) + 32.0)*100)/100);
+                weatherDto.setFahrenheit(getShortDouble((celsius * 9.0/5.0) + 32.0).doubleValue());
             }
             return weatherDto;
 
         }
+        log.error("No weather information is available");
         return new WeatherDto();
+    }
+
+    private BigDecimal getShortDouble(Double input){
+        return  new BigDecimal(input).setScale(2, RoundingMode.HALF_UP);
     }
 }

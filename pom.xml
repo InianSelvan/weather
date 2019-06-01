@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.web</groupId>
 	<artifactId>weather</artifactId>
-	<version>v1.0</version>
+	<version>v1.1</version>
 	<name>weather</name>
 	<description>Demo weather app based on Spring Boot</description>
 

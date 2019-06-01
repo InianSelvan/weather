@@ -3,8 +3,7 @@ package com.web.weather.controller;
 import com.web.weather.enums.City;
 import com.web.weather.model.Location;
 import com.web.weather.model.WeatherDto;
-import com.web.weather.service.WeatherSvc;
-import feign.FeignException;
+import com.web.weather.service.IWeatherSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ import static com.web.weather.controller.ControllerConstants.*;
 public class WeatherController
 {
     @Autowired
-    private WeatherSvc weatherSvc;
+    private IWeatherSvc weatherSvc;
 
     @Value("${api.id}")
     private String key;
@@ -68,13 +67,13 @@ public class WeatherController
             selectCountry(model);
             return INDEX_PAGE;
         }else{
-            try{
+            //try{
                 weatherDto = weatherSvc.getWeatherDetails(location, key);
-            }catch (FeignException e){
+    /*  }catch (FeignException e){
                 model.addAttribute(ERROR_MESSAGE_PROP, errorMessageClient);
                 selectCountry(model);
                 return INDEX_PAGE;
-            }
+            }*/
             if(weatherDto != null){
                 model.addAttribute(WEATHER_DETAILS, weatherDto);
             }
