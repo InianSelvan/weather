@@ -67,13 +67,7 @@ public class WeatherController
             selectCountry(model);
             return INDEX_PAGE;
         }else{
-            //try{
-                weatherDto = weatherSvc.getWeatherDetails(location, key);
-    /*  }catch (FeignException e){
-                model.addAttribute(ERROR_MESSAGE_PROP, errorMessageClient);
-                selectCountry(model);
-                return INDEX_PAGE;
-            }*/
+            weatherDto = weatherSvc.getWeatherDetails(location, key);
             if(weatherDto != null){
                 model.addAttribute(WEATHER_DETAILS, weatherDto);
             }

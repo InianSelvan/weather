@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.web</groupId>
 	<artifactId>weather</artifactId>
-	<version>v1.1</version>
+	<version>v1.2</version>
 	<name>weather</name>
 	<description>Demo weather app based on Spring Boot</description>
 
@@ -18,7 +18,7 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<!--suppress UnresolvedMavenProperty -->
-		<api.id>${env.API_ID}</api.id>
+		<api.id>${API_ID}</api.id>
 	</properties>
 
 	<dependencies>

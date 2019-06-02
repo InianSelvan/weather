@@ -9,7 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +29,7 @@ public class WeatherSvcTest
 
     @Test
     public void getWeatherDetailsTest(){
-        Location location = new Location(City.LONDON);
+        final Location location = new Location(City.LONDON);
         final String API_KEY = "123";
         WeatherResponse weatherResponse = new WeatherResponse();
         WeatherDescription weatherDescription = new WeatherDescription();
@@ -50,11 +51,11 @@ public class WeatherSvcTest
 
         verify(iWeatherClient).getWeatherByCountry(location.getCity().toString(), API_KEY);
 
-        assertEquals(LocalDate.of(2019,05,31), weatherDto.getDate());
+        assertEquals(Instant.now().atZone(ZoneId.of(location.getCity().getZoneid())).toLocalDate(), weatherDto.getDate());
         assertEquals(City.LONDON.toString(), weatherDto.getCity());
         assertEquals("Rain", weatherDto.getDescription());
-        assertTrue(weatherDto.getCelsius()==77.0);
-        assertTrue(weatherDto.getFahrenheit()==170.6);
+        assertTrue(weatherDto.getCelsius() == 77.04);
+        assertTrue(weatherDto.getFahrenheit() == 170.67);
         assertEquals("07:40:37 AM", weatherDto.getSunrise());
         assertEquals("04:47:55 PM", weatherDto.getSunset());
     }

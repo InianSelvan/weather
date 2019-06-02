@@ -1,6 +1,7 @@
 package com.web.weather.service;
 
 import com.web.weather.client.IWeatherClient;
+import com.web.weather.exception.LocationNotFountException;
 import com.web.weather.model.Location;
 import com.web.weather.model.WeatherDto;
 import com.web.weather.model.WeatherResponse;
@@ -43,8 +44,15 @@ public class WeatherSvc implements IWeatherSvc
     @Override
     public WeatherDto getWeatherDetails(Location location, String key) throws FeignException
     {
-        WeatherResponse response = iWeatherClient.getWeatherByCountry(location.getCity().toString(), key);
-        log.info("Getting weather response");
+        WeatherResponse response = null;
+        if(location != null){
+            response = iWeatherClient.getWeatherByCountry(location.getCity().toString(), key);
+            log.info("Getting weather response");
+        }else {
+            log.error("The location is not set");
+            throw new LocationNotFountException("Location is not set");
+        }
+
         if(response != null){
             WeatherDto weatherDto = new WeatherDto();
             weatherDto.setCity(response.getCity());
@@ -82,4 +90,6 @@ public class WeatherSvc implements IWeatherSvc
     private BigDecimal getShortDouble(Double input){
         return  new BigDecimal(input).setScale(2, RoundingMode.HALF_UP);
     }
+
+
 }

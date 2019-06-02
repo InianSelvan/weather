@@ -29,4 +29,5 @@ public interface IWeatherClient
     @RequestMapping(value = RESOURCE_URI, method = RequestMethod.GET)
     public WeatherResponse getWeatherByCountry(@RequestParam(value = CITY_QUERY_PARAM) String city,
             @RequestParam(value = APPID_QUERY_PARAM) String appId);
+
 }
