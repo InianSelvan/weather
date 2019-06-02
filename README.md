@@ -12,7 +12,9 @@ To get the api_id login to https://openweathermap.org/, signup and click on api 
 
 ## verify using maven
 To run mvn verify we need to pass the argument
+```sh
 mvn clean  -DAPI_ID=<api_id> verify
+```
 
 ## TODO 
-* Add more unit tests
+* Add more unit tests negative scenarios
